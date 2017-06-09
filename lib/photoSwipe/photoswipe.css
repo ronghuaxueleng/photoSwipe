@@ -86,7 +86,8 @@
   left: 0;
   right: 0;
   top: 0;
-  bottom: 0; }
+  bottom: 0;
+  overflow: initial;}
 
 /* Prevent selection and tap highlights */
 .pswp__container,
