@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>photoSwipe简单封装</title>
+    <link rel="stylesheet" href="lib/photoSwipe/photoswipe.css">
+    <link rel="stylesheet" href="lib/photoSwipe/default-skin/default-skin.css">
+    <style>
+        .img-list>img{
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+    <script type="text/javascript" src="lib/photoSwipe/photoswipe.js"></script>
+    <script type="text/javascript" src="lib/photoSwipe/photoswipe-ui-default.js"></script>
+    <script type="text/javascript" src="openPhotoSwipe.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            photoSwipeInit('img');
+        }
+    </script>
+</head>
+<body>
+
+<div class="img-list" id="img-list">
+    <img src="images/1.jpg" alt="1.jpg">
+    <img src="images/2.jpg" alt>
+    <img src="images/3.jpg" alt>
+    <img src="images/4.jpg" alt>
+</div>
+</body>
+</html>
