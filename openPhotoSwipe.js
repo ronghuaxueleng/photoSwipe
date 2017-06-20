@@ -37,8 +37,7 @@ function photoSwipeInit(needEnlargeClassName) {
             history: false,
             focus: false,
             showAnimationDuration: 0,
-            hideAnimationDuration: 0,
-            allowUserZoom: false
+            hideAnimationDuration: 0
         };
         var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
         gallery.init();
@@ -57,25 +56,29 @@ function photoSwipeInit(needEnlargeClassName) {
         var image = new Image();
         image.src = img.src;
         image.onload = function() {
-            callback(image.width, image.height);
+            callback(image.width, image.height, img);
         }
     }
     var items = [];
-    document.querySelectorAll(needEnlargeClassName).forEach(function(img, i){
-        img.setAttribute("enlarge-img-index", i);
-        getImgNaturalDimensions(img, function (width, height) {
-            items.push({
-                src: img.getAttribute("src"),
-                w: width,
-                h: height
-            });
-        });
-        addEvent(img, 'click', function () {
-            var index = this.getAttribute("enlarge-img-index");
-            openPhotoSwipe(items, index);
-        }, false);
-    });
 
+    var images = document.querySelectorAll(needEnlargeClassName);
+    for (var i in images) {
+        var img = images[i];
+        if (typeof(img)=='object') {
+            img.setAttribute("enlarge-img-index", i);
+            getImgNaturalDimensions(img, function (width, height, _img) {
+                items.push({
+                    src: _img.getAttribute("src"),
+                    w: width,
+                    h: height
+                });
+            });
+            addEvent(img, 'click', function () {
+                var index = this.getAttribute("enlarge-img-index");
+                openPhotoSwipe(items, index);
+            }, false);
+        }
+    };
     if (!document.getElementById('photo-swipe-html')) {
         var photoSwipeHtmlDiv = document.createElement('div');
         photoSwipeHtmlDiv.id = 'photo-swipe-html';
@@ -105,10 +108,6 @@ function photoSwipeInit(needEnlargeClassName) {
         + '<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">'
         + '<div class="pswp__share-tooltip"></div>'
         + '</div>'
-        + '<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">'
-        + '</button>'
-        + '<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">'
-        + '</button>'
         + '<div class="pswp__caption">'
         + '<div class="pswp__caption__center"></div>'
         + '</div>'
